@@ -1,0 +1,502 @@
+<!-- MONARCH AI CHATBOT PROJECT -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MONARCH AI</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+body{
+
+  height:100vh;
+
+  background:
+  linear-gradient(
+  135deg,
+  #000000,
+  #071c44,
+  #180000,
+  #000000
+  );
+
+  color:white;
+
+  overflow:hidden;
+}
+
+/* MAIN CHAT */
+
+.chat-container{
+
+  width:100%;
+  height:100vh;
+
+  display:flex;
+  flex-direction:column;
+}
+
+/* HEADER */
+
+.chat-header{
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:18px 30px;
+
+  background:rgba(0,0,0,0.5);
+
+  border-bottom:1px solid rgba(255,255,255,0.08);
+
+  backdrop-filter:blur(10px);
+}
+
+.logo{
+
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.logo-circle{
+
+  width:50px;
+  height:50px;
+
+  border-radius:50%;
+
+  background:
+  linear-gradient(
+  135deg,
+  #00aeff,
+  #ff003c
+  );
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:22px;
+  font-weight:bold;
+
+  box-shadow:
+  0 0 20px #00aeff,
+  0 0 30px #ff003c;
+}
+
+.logo-text h2{
+
+  font-size:22px;
+
+  color:white;
+}
+
+.logo-text p{
+
+  color:#9fb4d4;
+
+  font-size:13px;
+
+  margin-top:4px;
+}
+
+/* CHAT AREA */
+
+.chat-box{
+
+  flex:1;
+
+  overflow-y:auto;
+
+  padding:30px;
+
+  display:flex;
+  flex-direction:column;
+
+  gap:20px;
+}
+
+/* MESSAGES */
+
+.message{
+
+  max-width:70%;
+
+  padding:18px 20px;
+
+  border-radius:18px;
+
+  line-height:1.7;
+
+  font-size:15px;
+}
+
+.bot{
+
+  align-self:flex-start;
+
+  background:
+  linear-gradient(
+  135deg,
+  rgba(0,174,255,0.15),
+  rgba(255,0,60,0.08)
+  );
+
+  border:1px solid rgba(0,174,255,0.2);
+
+  backdrop-filter:blur(10px);
+
+  box-shadow:0 0 20px rgba(0,174,255,0.1);
+}
+
+.user{
+
+  align-self:flex-end;
+
+  background:
+  linear-gradient(
+  135deg,
+  #00aeff,
+  #ff003c
+  );
+
+  color:white;
+
+  box-shadow:
+  0 0 15px rgba(0,174,255,0.4);
+}
+
+/* INPUT AREA */
+
+.chat-input-area{
+
+  padding:20px;
+
+  background:rgba(0,0,0,0.4);
+
+  border-top:1px solid rgba(255,255,255,0.08);
+
+  display:flex;
+
+  gap:15px;
+}
+
+.chat-input{
+
+  flex:1;
+
+  padding:18px;
+
+  border:none;
+
+  outline:none;
+
+  border-radius:16px;
+
+  background:#0d111d;
+
+  color:white;
+
+  font-size:15px;
+
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+.chat-input:focus{
+
+  border:1px solid #00aeff;
+
+  box-shadow:0 0 15px rgba(0,174,255,0.2);
+}
+
+.send-btn{
+
+  width:70px;
+
+  border:none;
+
+  border-radius:16px;
+
+  cursor:pointer;
+
+  font-size:22px;
+
+  color:white;
+
+  background:
+  linear-gradient(
+  135deg,
+  #00aeff,
+  #ff003c
+  );
+
+  transition:0.3s;
+}
+
+.send-btn:hover{
+
+  transform:scale(1.05);
+
+  box-shadow:
+  0 0 20px #00aeff,
+  0 0 25px #ff003c;
+}
+
+/* SCROLL */
+
+.chat-box::-webkit-scrollbar{
+
+  width:6px;
+}
+
+.chat-box::-webkit-scrollbar-thumb{
+
+  background:#00aeff;
+
+  border-radius:10px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+  .message{
+
+    max-width:90%;
+  }
+
+  .chat-header{
+
+    padding:15px;
+  }
+
+  .logo-text h2{
+
+    font-size:18px;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="chat-container">
+
+  <!-- HEADER -->
+
+  <div class="chat-header">
+
+    <div class="logo">
+
+      <div class="logo-circle">
+        M
+      </div>
+
+      <div class="logo-text">
+
+        <h2>MONARCH AI</h2>
+
+        <p>Shadow System Activated ⚔️</p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- CHAT -->
+
+  <div class="chat-box" id="chatBox">
+
+    <div class="message bot">
+
+      Welcome Hunter ⚔️<br><br>
+
+      I am MONARCH AI.<br>
+
+      Ask me anything about:
+      <br><br>
+
+      • Programming
+      <br>
+      • Web Development
+      <br>
+      • AI Projects
+      <br>
+      • Cyber Security
+      <br>
+      • Game Design
+
+    </div>
+
+  </div>
+
+  <!-- INPUT -->
+
+  <div class="chat-input-area">
+
+    <input
+    type="text"
+    id="userInput"
+    class="chat-input"
+    placeholder="Message MONARCH AI...">
+
+    <button
+    class="send-btn"
+    onclick="sendMessage()">
+
+      <i class="fa-solid fa-paper-plane"></i>
+
+    </button>
+
+  </div>
+
+</div>
+
+<script>
+
+function sendMessage(){
+
+  let input =
+  document.getElementById("userInput");
+
+  let text =
+  input.value.trim();
+
+  if(text === "") return;
+
+  let chatBox =
+  document.getElementById("chatBox");
+
+  /* USER MESSAGE */
+
+  let userMsg =
+  document.createElement("div");
+
+  userMsg.className =
+  "message user";
+
+  userMsg.innerText =
+  text;
+
+  chatBox.appendChild(userMsg);
+
+  /* BOT MESSAGE */
+
+  let botMsg =
+  document.createElement("div");
+
+  botMsg.className =
+  "message bot";
+
+  let msg =
+  text.toLowerCase();
+
+  if(msg.includes("hello") ||
+     msg.includes("hi")){
+
+    botMsg.innerHTML =
+    "Welcome back Hunter ⚔️";
+
+  }
+
+  else if(msg.includes("html")){
+
+    botMsg.innerHTML =
+    "HTML is used to build webpage structure.";
+
+  }
+
+  else if(msg.includes("css")){
+
+    botMsg.innerHTML =
+    "CSS is used for styling websites and animations.";
+
+  }
+
+  else if(msg.includes("javascript")){
+
+    botMsg.innerHTML =
+    "JavaScript adds logic and interactivity to websites.";
+
+  }
+
+  else if(msg.includes("python")){
+
+    botMsg.innerHTML =
+    "Python is powerful for AI, automation and backend systems.";
+
+  }
+
+  else if(msg.includes("project")){
+
+    botMsg.innerHTML =
+    "My projects include AI systems, games and cyber dashboards.";
+
+  }
+
+  else if(msg.includes("who are you")){
+
+    botMsg.innerHTML =
+    "I am MONARCH AI ⚔️<br>" +
+    "A futuristic shadow assistant.";
+
+  }
+
+  else{
+
+    botMsg.innerHTML =
+    "Shadow Monarch is listening...";
+
+  }
+
+  setTimeout(() => {
+
+    chatBox.appendChild(botMsg);
+
+    chatBox.scrollTop =
+    chatBox.scrollHeight;
+
+  },500);
+
+  input.value = "";
+
+}
+
+/* ENTER KEY */
+
+document
+.getElementById("userInput")
+.addEventListener("keypress",
+function(e){
+
+  if(e.key === "Enter"){
+
+    sendMessage();
+
+  }
+
+});
+
+</script>
+
+</body>
+</html>
